@@ -1,0 +1,11 @@
+thor@jumphost:	
+ssh-keygen -t ed25519
+ssh-copy-id banner@stapp03=====> password===>BigGr33n
+
+banner@stapp03
+ssh-keygen -t ed25519
+ssh-copy-id natasha@ststor01===>pawssword===>Bl@kW
+
+
+
+scp /var/log/httpd/access_log /var/log/httpd/error_log natasha@ststor01:/usr/src/devops

@@ -1,0 +1,4 @@
+ansible all -i inventory 
+ansible-playbook playbook.yml --syntax-check
+ansible-playbook -i inventory  playbook.yml -C -D
+ansible-playbook -i inventory  playbook.yml

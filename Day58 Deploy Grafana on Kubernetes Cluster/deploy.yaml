@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana-app
+  name: grafana-deployment-devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-app
+  template:
+    metadata:
+      labels:
+        # 1. FIX: Changed the label here to match the selector label above.
+        # It's better practice for the Service selector to match the Deployment's template label,
+        # so we're keeping 'app: grafana-app' for the selector and template.
+        app: grafana-app
+    spec:
+      containers:
+      - image: grafana/grafana
+        name: grafana-container
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            # 2. FIX: Corrected the memory request unit from "512i" to "512Mi"
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-service-devops
+spec:
+  type: NodePort
+  selector:
+    # 3. FIX: Changed the selector to match the consistent template label 'app: grafana-app'
+    app: grafana-app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 32000

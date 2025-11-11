@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /opt/beta.git
+tag=release-$(date "+%Y-%m-%d")
+git tag $tag

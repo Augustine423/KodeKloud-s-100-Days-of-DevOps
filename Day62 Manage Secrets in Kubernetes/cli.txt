@@ -1,0 +1,5 @@
+kubectl create secret generic news --from-file=/opt/news.txt
+
+kubectl get secrets
+
+kubectl describe secret news

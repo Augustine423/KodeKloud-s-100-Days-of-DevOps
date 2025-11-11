@@ -1,0 +1,5 @@
+docker build -t nautilus/python-app .
+
+docker run -d -p 8095:3004 --name pythonapp_nautilus nautilus/python-app
+
+curl http://localhost:8091/

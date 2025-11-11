@@ -1,0 +1,7 @@
+COPY SAME SSH KEY TO PETER AND CLIENT SERVER
+THEN USE THAT SAME SSH KEY IN JENKINS
+
+
+FILE_PATH="/tmp/db_$(date +%F).sql"
+ssh -o StrictHostKeyChecking=no -t peter@stdb01 "mysqldump -u ${DB_USER} -p${DB_PASS} ${DB_NAME} > ${FILE_PATH}"
+scp -o StrictHostKeyChecking=no peter@stdb01:${FILE_PATH} clint@stbkp01:/home/clint/db_backups/

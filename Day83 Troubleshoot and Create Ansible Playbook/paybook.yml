@@ -1,0 +1,8 @@
+- name: Ansible create empty file
+  hosts: stapp01
+  remote_user: tony
+  tasks:
+  - name: Create a file.txt
+    file:
+      path: /tmp/file.txt
+      state: touch

@@ -1,0 +1,14 @@
+- name: install httpd server on all app_servers
+  hosts: app_servers
+  become: yes
+  tasks:
+    - name: Install httpd package
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start and enable httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: yes

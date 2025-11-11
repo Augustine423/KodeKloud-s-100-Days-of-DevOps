@@ -1,0 +1,14 @@
+#!/bin/bash
+sudo yum install -y httpd
+
+sudo systemctl enable httpd --now
+
+sudo systemctl start httpd
+
+sudo sed -i 's/^Listen 80/Listen 8080/' /etc/httpd/conf/httpd.conf
+
+cat /etc/httpd/conf/httpd.conf | grep Listen
+
+sudo systemctl restart httpd
+
+curl localhost:8080

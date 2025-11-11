@@ -1,0 +1,1 @@
+kubectl run pod-nginx --image=nginx:latest --labels="app=nginx_app" --container-name=nginx-container

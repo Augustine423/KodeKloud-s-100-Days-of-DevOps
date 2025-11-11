@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-share-xfusion
+  labels:
+    run: volume-share-xfusion
+spec:
+  # Define the shared emptyDir volume at the Pod level
+  volumes:
+  - name: volume-share
+    emptyDir: {}
+  
+  containers:
+  - name: volume-container-xfusion-1
+    image: ubuntu:latest
+    command: ["sleep"]
+    args: ["3600"]
+    volumeMounts:
+    - name: volume-share
+      mountPath: /tmp/media # First container's mount path
+    resources: # Resources block for Container 1
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+      requests:
+        memory: "256Mi"
+        cpu: "250m"
+
+  - name: volume-container-xfusion-2
+    image: ubuntu:latest
+    command: ["sleep"]
+    args: ["3600"]
+    volumeMounts:
+    - name: volume-share
+      mountPath: /tmp/apps # Second container's mount path
+    resources: # Resources block for Container 2 (using the same values for consistency)
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+      requests:
+        memory: "256Mi"
+        cpu: "250m"

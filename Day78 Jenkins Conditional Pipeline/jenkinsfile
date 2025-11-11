@@ -1,0 +1,46 @@
+pipeline {
+    // 1. Agent: Run on the slave node labeled 'ststor01' (Storage Server)
+    agent { label 'ststor01' }
+
+    // 2. Parameters: Define the required string parameter
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'master', description: 'Branch name (master or feature)')
+    }
+
+    stages {
+        // 3. Stage: The single, required 'Deploy' stage
+        stage('Deploy') {
+            steps {
+                echo 'Starting Deployment'
+                
+                // Set the workspace directory as safe for Git operations
+                sh 'git config --global --add safe.directory /var/www/html'
+                
+                // 4. Conditional Logic: Wrapped in a 'script' block
+                script { 
+                    if (params.BRANCH == 'master') {
+                        echo 'Deploying MASTER branch'
+                        sh '''
+                            cd /var/www/html
+                            git fetch origin
+                            git checkout master
+                            git pull origin master
+                        '''
+                    }
+                    else if (params.BRANCH == 'feature') {
+                        echo 'Deploying FEATURE branch'
+                        sh '''
+                            cd /var/www/html
+                            git fetch origin
+                            git checkout feature
+                            git pull origin feature
+                        '''
+                    }
+                    else {
+                        error "Invalid BRANCH parameter value: ${params.BRANCH}. Must be 'master' or 'feature'."
+                    }
+                }
+            }
+        }
+    }
+}

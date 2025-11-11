@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Deploy') {
+            steps {
+                sshagent (credentials: ['storage-ssh']) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no natasha@ststor01 "
+                        cd /var/www/html &&
+                        git pull origin master
+                    "
+                    '''
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'curl -f http://stlb01:8091'
+            }
+        }
+    }
+}

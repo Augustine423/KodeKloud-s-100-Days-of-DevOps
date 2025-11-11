@@ -1,0 +1,11 @@
+ssh tony@stapp01====>
+ssh steve@stapp02=====>
+ssh banner@stapp03=====>
+
+ssh -o StrictHostKeyChecking=no nataha@ststor01 "cd /var/www/html && git checkout master && git pull origin master"
+
+
+
+ssh -o StrictHostKeyChecking=no tony@stapp01 "sudo systemctl restart httpd"
+ssh -o StrictHostKeyChecking=no steve@stapp02 "sudo systemctl restart httpd"
+ssh -o StrictHostKeyChecking=no banner@stapp03 "sudo systemctl restart httpd"

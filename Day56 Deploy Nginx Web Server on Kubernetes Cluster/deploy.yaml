@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-app # Use a common label for selection
+spec:
+  replicas: 3 # Requirement: 3 replicas
+  selector:
+    matchLabels:
+      app: nginx-app
+  template:
+    metadata:
+      labels:
+        app: nginx-app # Pod label must match Deployment selector and Service selector
+    spec:
+      containers:
+      - name: nginx-container # Requirement: container name
+        image: nginx:latest # Requirement: nginx:latest image
+        resources:
+          limits:
+            memory: "256Mi" # Requirement: memory limit
+            cpu: "500m"    # Requirement: CPU limit 
+          requests:
+            memory: "128Mi" # Requirement: memory request
+            cpu: "250m"    # Requirement: CPU request
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service # Requirement: Service name
+spec:
+  type: NodePort # Requirement: NodePort type
+  # FIX: Service selector must match the Pod's label (app: nginx-app)
+  selector:
+    app: nginx-app
+  ports:
+    # Service port (internal to cluster)
+    - port: 80
+      # Target port (port NGINX container listens on)
+      targetPort: 80
+      # Requirement: NodePort value
+      nodePort: 30011

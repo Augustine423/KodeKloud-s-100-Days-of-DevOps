@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ic-datacenter
+  name: ic-deploy-datacenter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ic-datacenter
+  template:
+    metadata:
+      labels:
+        app: ic-datacenter
+    spec:
+      volumes:
+        - name: ic-volume-datacenter
+          emptyDir: {}
+          
+      initContainers:
+      - name: ic-msg-datacenter
+        image: fedora:latest
+        command: ['/bin/bash', '-c', 'echo "Init Done - Welcome to xFusionCorp Industries" > /ic/beta'] 
+        volumeMounts:
+        - mountPath: /ic
+          name: ic-volume-datacenter
+
+      containers:
+      - name: ic-main-datacenter
+        image: fedora:latest
+        command: ['/bin/bash', '-c', 'while true; do cat /ic/beta; sleep 5; done'] 
+        volumeMounts:
+        - mountPath: /ic
+          name: ic-volume-datacenter
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "500m"

@@ -1,0 +1,3 @@
+ansible all -m ping -i inventory
+
+ansible-playbook -i inventory playbook.yml

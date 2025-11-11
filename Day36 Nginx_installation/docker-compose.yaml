@@ -1,0 +1,7 @@
+services:
+  nginx_3:
+    image: nginx:alpine
+    container_name: nginx_3
+    restart: unless-stopped
+    ports:
+      - 80:80

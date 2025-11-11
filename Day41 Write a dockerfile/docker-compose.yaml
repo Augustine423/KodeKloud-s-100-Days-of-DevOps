@@ -1,0 +1,15 @@
+services:
+  webserver:
+    # Build the image from the Dockerfile in the current directory
+    build: . 
+    
+    # Map the container port 8089 (EXPOSEd in the Dockerfile) 
+    # to port 8089 on the host machine.
+    ports:
+      - "8089:8089"
+      
+    # Assign a specific name to the container
+    container_name: apache_8089_server
+    
+    # Restart the container if it stops unexpectedly
+    restart: unless-stopped

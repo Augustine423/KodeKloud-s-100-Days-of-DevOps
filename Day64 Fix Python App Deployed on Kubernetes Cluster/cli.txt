@@ -1,0 +1,5 @@
+TO RESOLVE ISSUES ALREADY DEPLOYED APPS
+
+k edit deploy <resouce deployment name>
+
+k edit svc <resource service name>

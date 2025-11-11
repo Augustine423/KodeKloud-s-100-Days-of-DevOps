@@ -1,0 +1,13 @@
+---
+- name: Create a file
+  hosts: all_app_servers
+  become: true
+
+  tasks:
+    - name: Create a blank file
+      file:
+        path: /opt/webapp.txt
+        state: touch
+        mode: '0655'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"

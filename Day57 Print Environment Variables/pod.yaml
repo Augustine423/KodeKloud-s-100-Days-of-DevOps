@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: print-envars-greeting
+  labels:
+    run: print-envars-greeting
+spec:
+  containers:
+  - name: print-env-container # Requirement: Container name
+    image: bash # Requirement: Use bash image
+    
+    # Requirement: Set environment variables (name/value format)
+    env:
+    - name: GREETING
+      value: "Welcome to"
+    - name: COMPANY
+      value: "DevOps"
+    - name: GROUP
+      value: "Industries"
+      
+    # Requirement: Use the exact command
+    # Note: Using '/bin/sh' is necessary for many base images, 
+    # but since the requirement specified 'bash' image, '/bin/sh' will work fine.
+    # The required command structure is used here.
+    command: ["/bin/sh", "-c", 'echo "$(GREETING) $(COMPANY) $(GROUP)"']
+      
+  # Requirement: Set restartPolicy to Never
+  restartPolicy: Never

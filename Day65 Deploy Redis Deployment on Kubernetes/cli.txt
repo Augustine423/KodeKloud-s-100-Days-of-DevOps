@@ -1,0 +1,1 @@
+k create cm my-redis-config --from-literal=redis-config="maxmemory 2mb"--dry-run=client -o yaml

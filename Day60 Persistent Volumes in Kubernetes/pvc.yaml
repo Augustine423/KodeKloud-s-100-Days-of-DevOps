@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-datacenter
+spec:
+  capacity:
+    storage: 5Gi
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/security
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-datacenter
+spec:
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-datacenter
+  labels:
+    app.kubernetes.io/name: pvc-datacenter
+spec:
+  containers:
+  - name: container-datacenter
+    image: nginx:latest
+    volumeMounts:
+      - mountPath: "/mnt/security"
+        name: storage-datacenter
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+      requests:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+  volumes:
+    - name: storage-datacenter
+      persistentVolumeClaim:
+        claimName: pvc-datacenter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-datacenter
+spec:
+  selector:
+    app.kubernetes.io/name: pvc-datacenter
+  type: NodePort # ⬅️ MOVED TO CORRECT LOCATION
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30008 # ⬅️ MOVED TO CORRECT LOCATION

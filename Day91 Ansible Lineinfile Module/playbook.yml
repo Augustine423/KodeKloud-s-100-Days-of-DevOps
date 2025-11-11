@@ -1,0 +1,33 @@
+---
+- name: Install httpd and deploy sample web page
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install httpd web server
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start and enable httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Create index.html with initial content
+      copy:
+        dest: /var/www/html/index.html
+        content: This is a Nautilus sample file, created using Ansible!
+        owner: apache
+        group: apache
+        mode: '0655'
+
+- name: Add welcome line at the top using lineinfile
+  lineinfile:
+    path: /var/www/html/index.html
+    line: Welcome to Nautilus Group!
+    insertbefore: BOF
+    owner: apache
+    group: apache
+    mode: '0655'

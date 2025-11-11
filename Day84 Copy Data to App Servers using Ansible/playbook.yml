@@ -1,0 +1,10 @@
+---
+- name: Copy Data
+  hosts: all
+  become: true  # Use privilege escalation as root user
+  tasks:
+    - name: Copy index.html file to all Apps_Server
+      copy:
+        src: /usr/src/devops/index.html
+        dest: /opt/devops
+        remote_src: false

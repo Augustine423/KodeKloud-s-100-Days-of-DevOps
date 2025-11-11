@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  redis-config: maxmemory 2mb--dry-run=client
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2025-11-06T09:43:25Z"
+  name: my-redis-config
+  namespace: default
+  resourceVersion: "989"
+  uid: d0115397-5e40-47eb-b60b-e8bf6716484b

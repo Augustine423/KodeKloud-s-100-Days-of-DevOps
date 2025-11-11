@@ -1,0 +1,41 @@
+- name: Create files with ACLs on Stratos DC app servers
+  hosts: all
+  become: yes
+
+  vars:
+    acl_data:
+      stapp01:
+        path: /opt/dba//blog.txt
+        etype: group
+        permissions: r
+      stapp02:
+        path: /opt/dba//story.txt
+        etype: user
+        permissions: rw
+      stapp03:
+        path: /opt/dba//media.txt
+        etype: group
+        permissions: rw
+
+  tasks:
+    # - name: Ensure parent directory exists
+    #   file:
+    #     path: "{{ acl_data[ansible_hostname].path | dirname }}"
+    #     state: directory
+    #     mode: '0755'
+    #   when: ansible_hostname in acl_data
+
+    - name: Create the file for each server
+      file:
+        path: "{{ acl_data[ansible_hostname].path }}"
+        state: touch
+      when: ansible_hostname in acl_data
+    
+    - name: Set ACLs on the file for each server
+      acl:
+        path: "{{ acl_data[ansible_hostname].path }}"
+        entity: "{{ ansible_user }}"
+        etype: "{{ acl_data[ansible_hostname].etype }}"
+        permissions: "{{ acl_data[ansible_hostname].permissions }}"
+        state: present
+      when: ansible_hostname in acl_data

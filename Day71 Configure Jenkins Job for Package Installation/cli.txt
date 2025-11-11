@@ -1,0 +1,4 @@
+sudo yum install $PACKAGE
+ssh-keygen -t ed25519
+ssh-copy-id natasha@ststor01 ==> Enter Password==>Bl@kW
+sudo visudo ===> /NOPASS enter ===> add natasha
