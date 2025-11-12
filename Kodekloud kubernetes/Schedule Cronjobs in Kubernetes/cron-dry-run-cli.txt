@@ -1,0 +1,1 @@
+ kubectl create cronjob xfusion --image=nginx:latest --schedule="*/9 * * * *" --dry-run=client -o yaml

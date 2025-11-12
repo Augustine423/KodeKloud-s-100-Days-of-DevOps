@@ -1,0 +1,1 @@
+k create job countdown-datacenter --image=ubuntu:latest --dry-run=client -o yaml

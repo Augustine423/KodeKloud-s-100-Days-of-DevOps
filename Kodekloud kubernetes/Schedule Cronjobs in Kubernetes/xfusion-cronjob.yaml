@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: xfusion
+spec:
+  jobTemplate:
+    metadata:
+      name: xfusion
+    spec:
+      template:
+        metadata:
+          name: xfusion
+        spec:
+          containers:
+          - image: nginx:latest
+            name: cron-xfusion
+            command: ["/bin/bash", "-c"]
+            args: ["echo Welcome to xfusioncorp!"] 
+          restartPolicy: OnFailure
+  schedule: '*/9 * * * *'

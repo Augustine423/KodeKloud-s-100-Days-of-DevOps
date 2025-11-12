@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: countdown-datacenter
+spec:
+  template:
+    metadata:
+      name: countdown-datacenter
+    spec:
+      containers:
+      - image: ubuntu:latest
+        name: container-countdown-datacenter
+        command: ["/bin/bash", "-c"]
+        args: ["sleep 5"]        
+      restartPolicy: Never
