@@ -1,0 +1,2 @@
+sudo yum install -y git
+git init --bare  blog.git  		#where blog.git is repo name with bare upstream repo no .git here 

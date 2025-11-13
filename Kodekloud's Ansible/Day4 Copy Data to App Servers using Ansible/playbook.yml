@@ -1,0 +1,19 @@
+- name: Copy afile to all application servers, dir /opt/finance.
+  hosts: appservers
+  become: yes
+  
+  tasks:
+    - name: copy index.html to app servers
+      file:
+        path: /usr/src/finance/index.html
+        state: directory
+        owner: root
+        group: root
+    
+    - name: copy to all app servers /opt/finance
+      copy:
+        src: /usr/src/finance/index.html
+        dest: /opt/finance/index.html
+        owner: root
+        group: root
+        mode: '0644'

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: beta-nginx-t1q2
+  name: beta-nginx-t1q2
+spec:
+  containers:
+    - image: nginx:latest
+      name: beta-nginx-t1q2-container
+  restartPolicy: Always

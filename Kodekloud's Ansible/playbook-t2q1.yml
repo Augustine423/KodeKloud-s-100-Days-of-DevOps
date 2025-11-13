@@ -1,0 +1,14 @@
+---
+- name: Copy index file to all application servers
+  hosts: all 
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Copy index-t2q1.html to /opt/itadmin-t2q1
+      ansible.builtin.copy:
+        src: /usr/src/itadmin-t2q1/index-t2q1.html
+        dest: /opt/itadmin-t2q1/index-t2q1.html
+        owner: root  
+        group: root
+        mode: '0644'

@@ -1,0 +1,23 @@
+---
+- name: Copy files
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Ensure destination directory /opt/security-t2q3 exists
+      file:
+        path: /opt/security-t2q3
+        state: directory
+        owner: thor
+        group: thor
+        mode: '0755'
+
+    - name: Copy the required file to the destination
+      copy:
+        src: /usr/src/security-t2q3/linux-t2q3.txt 
+        dest: /opt/security-t2q3/linux-t2q3.txt  
+        owner: thor
+        group: thor
+        mode: '0644'

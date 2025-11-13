@@ -1,0 +1,11 @@
+---
+- name: installed a package on App Server 3
+  hosts: stapp03 
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Install htop package on App Server 3
+      yum:
+        name: zlib
+        state: present

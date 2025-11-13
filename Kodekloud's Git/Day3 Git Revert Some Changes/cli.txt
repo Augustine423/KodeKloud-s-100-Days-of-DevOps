@@ -1,0 +1,2 @@
+git revert -m 1 -n
+git commit -m "commit"

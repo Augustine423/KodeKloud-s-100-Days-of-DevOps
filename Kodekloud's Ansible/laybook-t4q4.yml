@@ -1,0 +1,11 @@
+---
+- name: /opt/fruits-t4q4.txt from all App Servers
+  hosts: all
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Delete /opt/fruits-t4q4.txt with fruit names
+      file:
+        path: /opt/fruits-t4q4.txt
+        state: absent

@@ -1,0 +1,16 @@
+---
+- name: Move file from /usr/src to /opt on App Server 2
+  hosts: stapp02  # Target only App Server 2
+  gather_facts: no
+  become: yes     # Use elevated privileges (sudo) for file/directory tasks
+
+  tasks:
+    - name: Ensure target directory /opt/itadmin-t2q5 exists
+      file:
+        path: /opt/itadmin-t2q5
+        state: directory
+        mode: '0755'
+
+    - name: Copy file within App Server 2 (from /usr/src to /opt)
+      command: 
+        cmd: cp /usr/src/itadmin-t2q5/story-t2q5.txt /opt/itadmin-t2q5/

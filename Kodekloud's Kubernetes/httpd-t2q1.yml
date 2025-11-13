@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: httpd-t2q1
+  name: httpd-t2q1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpd-t2q1
+  template:
+    metadata:
+      labels:
+        app: httpd-t2q1
+    spec:
+      containers:
+      - image: httpd:latest
+        name: httpd
+        resources: {}

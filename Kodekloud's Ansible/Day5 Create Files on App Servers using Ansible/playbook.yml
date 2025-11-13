@@ -1,0 +1,13 @@
+- name: create a day5 tasks
+  hosts: appservers
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: create an empty web.txt file
+      file:
+        path: /usr/src/web.txt
+        state: "touch"
+        mode: '0744'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"

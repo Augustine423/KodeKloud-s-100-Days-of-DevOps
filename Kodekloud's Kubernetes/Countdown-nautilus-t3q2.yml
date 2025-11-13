@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: countdown-nautilus-t3q2
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+      - name: container-countdown-nautilus-t3q2
+        image: ubuntu:latest
+        command: ['/bin/bash', '-c']
+        args: ["sleep 5"]
+      restartPolicy: Never

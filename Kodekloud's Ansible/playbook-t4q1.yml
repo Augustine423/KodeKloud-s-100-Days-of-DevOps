@@ -1,0 +1,18 @@
+---
+- name: create a blank file appdata-t4q1.txt
+  hosts: all
+  gather_facts: no
+  become: yes
+
+  tasks:
+
+    - name: Ensure target directory /opt/itadmin-t4q1 exists
+      file:
+        path: /opt/itadmin-t4q1
+        state: directory
+        mode: '0755'
+    - name: Create blank file /opt/itadmin-t4q1/appdata-t4q1.txt
+      file:
+        path: /opt/itadmin-t4q1/appdata-t4q1.txt
+        state: touch
+        mode: '0644'

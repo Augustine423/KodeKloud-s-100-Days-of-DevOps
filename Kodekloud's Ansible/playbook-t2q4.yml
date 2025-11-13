@@ -1,0 +1,23 @@
+---
+- name: Copy file on localhost and set ownership
+  hosts: localhost
+  gather_facts: no
+  connection: localhost
+  become: yes
+
+  tasks:
+    - name: Ensure destination directory /opt/security-t2q4 exists
+      file:
+        path: /opt/security-t2q4
+        state: directory
+        owner: thor
+        group: thor
+        mode: '0755'
+
+    - name: Copy the source file to the destination
+      copy:
+        src: /usr/src/security-t2q4/devops-t2q4.txt
+        dest: /opt/security-t2q4/devops-t2q4.txt
+        owner: thor
+        group: thor
+        mode: '0644'

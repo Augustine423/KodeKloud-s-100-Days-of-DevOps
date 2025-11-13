@@ -1,0 +1,18 @@
+---
+- name: create group on all apps servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create a group named 'developers'
+      group:
+        name: nautilus_developers
+        state: present
+      become: yes
+    
+    - name: Create a user kano into the nautilus_developers group on all App servers
+      user:
+        name: kano
+        groups: nautilus_developers
+        append: yes
+        state: present
+      become: yes

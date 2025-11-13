@@ -1,0 +1,9 @@
+#configure the playbook to run on localhost and execute an echo command echoing Welcome!
+---
+- name: localhost welcome message
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Echo Welcome message
+      command: echo "Welcome!"
