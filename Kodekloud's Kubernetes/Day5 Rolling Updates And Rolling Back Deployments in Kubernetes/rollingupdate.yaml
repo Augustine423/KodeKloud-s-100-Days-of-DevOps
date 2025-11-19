@@ -1,0 +1,61 @@
+#=======================
+#       Namespaces     #  
+#=======================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: xfusion
+
+---
+#==============================
+#  httpd-deployment-Creation  #
+#=============================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-deploy
+  namespace: xfusion
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 2
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:2.4.28
+        ports:
+        - containerPort: 80
+
+---
+#==================================
+#         Node-Port-Sevice        #
+#==================================
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd-service
+  namespace: xfusion
+spec:
+  type: NodePort
+  selector:
+    app: httpd
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30008
+
+
+
+
