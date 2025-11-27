@@ -1,0 +1,8 @@
+        - mountPath: /app/index.php
+          name: index
+          subPath: index.php
+
+      - configMap:
+          defaultMode: 420
+          name: index
+        name: index

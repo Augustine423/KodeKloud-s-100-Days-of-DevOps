@@ -1,0 +1,5 @@
+ k create deployment node --image=gcr.io/kodekloud/centos-ssh-enabled:node -r 2
+
+ k expose deployment node --type=NodePort --port=8080 --name node-service
+
+k edit svc node-service
